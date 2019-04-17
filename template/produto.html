@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content  %}
+    <h1>Produtos</h1>
+    {% if produtos %}
+        {% for p in produtos %}
+        {{ include("prd.html")}}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

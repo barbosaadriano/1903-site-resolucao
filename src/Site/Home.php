@@ -2,10 +2,12 @@
 
 namespace Site;
 
+use Helpers\ViewModel;
+
 class Home
 {
     public function helloWorld()
     {
-        return "Hello World";
+        return new ViewModel('base',['hello'=>'Olá Mundão véio']);
     }
 }

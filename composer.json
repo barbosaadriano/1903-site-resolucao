@@ -1,0 +1,17 @@
+{
+	"name":"Minha app incrivel",
+	"require":{
+		"symfony/http-foundation": "^4.2",
+		"symfony/routing":"^3.4",
+		"symfony/config": "^4.2",
+		"twig/twig": "^2.8"
+	},
+	"autoload":{
+		"psr-4":{
+			"Site\\":"src/Site/"
+		}
+	},
+	"scripts":{
+		"serve":"php -S localhost:8080 -t public public/index.php"
+	}
+}

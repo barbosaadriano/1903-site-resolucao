@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 {% block content  %}
+<style>
+    .card-body {
+        color: #333;
+    }
+</style>
     <h1>Produtos</h1>
+    <div class="card-deck">
     {% if produtos %}
         {% for p in produtos %}
         {{ include("prd.html")}}
         {% endfor %}
     {% endif %}
+    </div>
 {% endblock %}

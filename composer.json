@@ -11,7 +11,9 @@
 		"psr-4":{
 			"Site\\":"src/Site/",
 			"Contracts\\":"src/Contracts",
-			"Helpers\\":"src/Helpers"
+			"Helpers\\":"src/Helpers",
+                        "Models\\":"src/Models",
+                        "Factories\\":"src/Factories"
 		}
 	},
 	"scripts":{

@@ -57,7 +57,7 @@ $res = null;
                      */
 			$clazz = new $controller();	//
                         /**
-                         * Solução: criar Factories, usar reflexao, abstract factory com várias fabricas
+                         * Solução: criar Factories, abstract factory com várias fabricas
                          * fabrica de controllers, fabrica de serviços, container de injeção
                          */
                         

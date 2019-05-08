@@ -2,21 +2,18 @@
 
 namespace Site;
 
+use Factories\CafeFactory;
 use Helpers\ViewModel;
 
-class Produto
-{
-    public function listarProdutos()
-    {
-        return new ViewModel(
-            'produto',
-            [
-                'produtos'=>[
-                    ['titulo'=> 'Produto 1'],
-                    ['titulo'=> 'Produto 2'],
-                    ['titulo'=> 'Produto 3'],
-                ]
-            ]
-        );
+class Produto {
+
+    public function listarProdutos() {
+
+        $prods = [];
+        for ($index = 0; $index < 3; $index++) {
+            $prods[] = CafeFactory::getFactory(rand(1, 3))->fabricar();
+        }
+        return new ViewModel('produto', ['produtos' => $prods] );
     }
+
 }

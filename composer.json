@@ -12,8 +12,10 @@
 			"Site\\":"src/Site/",
 			"Contracts\\":"src/Contracts",
 			"Helpers\\":"src/Helpers",
-                        "Models\\":"src/Models",
-                        "Factories\\":"src/Factories"
+            "Models\\":"src/Models",
+			"Factories\\":"src/Factories",
+			"Services\\":"src/Services",
+			"Config\\Post\\":"config/Post"
 		}
 	},
 	"scripts":{

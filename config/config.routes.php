@@ -8,4 +8,10 @@ return function(RoutingConfigurator $routes){
 	
 	$routes->add('produto','/produto')
 		->controller(['Site\Produto','listarProdutos']);
+	
+	// Nova rota adicionada para resolver /blog no controller Site\Blog
+	// no método ultimasPostagens
+	$routes->add('blog','/blog')
+		->controller(['Site\Blog','ultimasPostagens']);
+		
 };

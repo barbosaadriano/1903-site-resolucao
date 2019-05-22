@@ -1,0 +1,21 @@
+{% extends "base.html" %} 
+{% block content  %} 
+    <h1>Últimas postagens</h1> <!-- Este é o conteúdo da nossa view-->
+    {% if posts %}
+    <div class="card-columns">
+    {% for p in posts %}
+
+
+        <div class="card bg-dark text-white">
+                <img src="{{ p.miniatura }}" class="card-img" alt="...">
+                <div class="card-img-overlay">
+                  <h5 class="card-title">{{ p.title }}</h5>
+                  <p class="card-text">{{ p.conteudo }}</p>
+                  <p class="card-text">{{ p.autor }}</p>
+                </div>
+              </div>
+          
+    {% endfor %}
+    </div>
+    {% endif %}
+{% endblock %}

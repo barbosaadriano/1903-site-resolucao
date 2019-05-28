@@ -14,4 +14,8 @@ return function(RoutingConfigurator $routes){
 	$routes->add('blog','/blog')
 		->controller(['Site\Blog','ultimasPostagens']);
 		
+	$routes->add('postx','/blog/{post}')
+		->controller(['Site\Blog','viewPost'])
+		->defaults(['post'=>0])
+		->requirements(['post'=>'\d+']);
 };

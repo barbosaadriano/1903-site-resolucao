@@ -19,6 +19,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\PhpFileLoader;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\HttpKernel;
 
 // instanciando o framework Whoops para gerenciar erros
 $whoops = new \Whoops\Run;
@@ -37,39 +38,52 @@ $router = new Router($loader,'../config/config.routes.php',
 
 // Roteamento, tenta resolver uma rota, e se não encontrar, define um Controller_
 // E404 como padrão
-try {
-	$rota = $router->matchRequest($request);
-	$controllerName = isset($rota['_controller']) ? $rota['_controller'] : '';
-} catch (Symfony\Component\Routing\Exception\ResourceNotFoundException $exc) {
-	$controllerName = ['Site\E404','inicio'];
-}
 // Instancia o controller com base nos parâmetros da rota
 $res = null;
-// Nesta etapa há problemas que precisam ser solucionados
- if (is_array($controllerName)) {		
-		$controller = $controllerName[0];
-		$metodo = $controllerName[1];
-		if (class_exists($controller)) {			
-                    /**
-                     * não conseguimos ter o controle sobre a construção do controller
-                     * não conseguimos injetar uma dependência, e se fizermos,
-                     * teriamos que passar para todos os outros controllers também: exemplificar
-                     */
-			$clazz = new $controller();	//
-                        /**
-                         * Solução: criar Factories, abstract factory com várias fabricas
-                         * fabrica de controllers, fabrica de serviços, container de injeção
-                         */
-                        
-			if (!method_exists($clazz,$metodo)) {
-				throw new \Exception("Método {$metodo} não existe para ".get_class($clazz));
-			}
-			$res = call_user_func([$clazz,$metodo]);
-		} else {
-			throw new \Exception("Controller de Erro não Encontrado!");
-		}
- }
- // verifica se o retorno do controller for correto
+try {
+	$controllerResolver = new HttpKernel\Controller\ControllerResolver();
+	$argumentResolver = new HttpKernel\Controller\ArgumentResolver();
+	$request->attributes->add($router->match($request->getPathInfo()));
+    $controller = $controllerResolver->getController($request);
+    $arguments = $argumentResolver->getArguments($request, $controller);
+	$res = call_user_func_array($controller, $arguments);
+/*
+	$rota = $router->matchRequest($request);
+	var_dump($rota);
+	die;
+	$controllerName = isset($rota['_controller']) ? $rota['_controller'] : '';
+	*/
+} catch (Symfony\Component\Routing\Exception\ResourceNotFoundException $exc) {
+	$erro = new Site\E404();
+	$res = $erro->inicio();
+}
+
+//// Nesta etapa há problemas que precisam ser solucionados
+// if (is_array($controllerName)) {		
+//		$controller = $controllerName[0];
+//		$metodo = $controllerName[1];
+//		if (class_exists($controller)) {			
+//                    /**
+//                     * não conseguimos ter o controle sobre a construção do controller
+//                     * não conseguimos injetar uma dependência, e se fizermos,
+//                     * teriamos que passar para todos os outros controllers também: exemplificar
+//                     */
+//			$clazz = new $controller();	//
+//                        /**
+//                         * Solução: criar Factories, abstract factory com várias fabricas
+//                         * fabrica de controllers, fabrica de serviços, container de injeção
+//                         */
+//                        
+//			if (!method_exists($clazz,$metodo)) {
+//				throw new \Exception("Método {$metodo} não existe para ".get_class($clazz));
+//			}
+//			$res = call_user_func([$clazz,$metodo]);
+//		} else {
+//			throw new \Exception("Controller de Erro não Encontrado!");
+//		}
+// }
+// 
+// // verifica se o retorno do controller for correto
  if ($res!==null && !$res instanceof Contracts\RenderModel) {
 	 throw new \Exception("O Controller sempre deve retornar um RenderModel!");
  }

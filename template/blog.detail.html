@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content  %}
+    <a href="/blog">Voltar</a>
+    {% if post %}
+    <h1>{{post.titulo}}</h1> <!-- Este é o conteúdo da nossa view-->
+    <img width="200px" src="{{ post.miniatura }}">
+    <p>{{ post.conteudo }}</p>
+    <p>{{ post.autor }}</p>
+{% endif %}
+{% endblock %}

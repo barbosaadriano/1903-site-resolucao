@@ -9,9 +9,11 @@
         <div class="card bg-dark text-white">
                 <img src="{{ p.miniatura }}" class="card-img" alt="...">
                 <div class="card-img-overlay">
-                  <h5 class="card-title">{{ p.title }}</h5>
+                  <a href="/blog/{{ p.id }}">
+                  <h5 class="card-title">{{ p.titulo }}</h5>
                   <!--<p class="card-text">{{ p.conteudo }}</p>-->
                   <p class="card-text">{{ p.autor }}</p>
+                </a>
                 </div>
               </div>
           

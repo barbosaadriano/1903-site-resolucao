@@ -5,7 +5,8 @@
 		"symfony/routing":"^3.4",
 		"symfony/config": "^4.2",
 		"twig/twig": "^2.8",
-		"filp/whoops": "^2.3"
+		"filp/whoops": "^2.3",
+		"symfony/http-kernel": "^4.2"
 	},
 	"autoload":{
 		"psr-4":{
